@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Справочник по гибке металла — Радиус</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS ─────────────────────────────────────── */
+:root {
+  --bg:    #0c0c0c;
+  --bg2:   #141414;
+  --bg3:   #1c1c1c;
+  --line:  rgba(255,255,255,0.09);
+  --line2: rgba(255,255,255,0.18);
+  --white: #ffffff;
+  --muted: rgba(255,255,255,0.72);
+  --accent: #c8c4bb;
+  --font-d: 'Cormorant', Georgia, serif;
+  --font-b: 'Jost', sans-serif;
+  --max:   1200px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-b);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ── UTILS ──────────────────────────────────────── */
+.wrap    { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.25rem,5vw,3rem); }
+.section { padding: clamp(4rem,8vw,7rem) 0; }
+.hr      { height: 1px; background: var(--line); }
+.tag {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1.25rem;
+}
+
+/* ── BUTTONS ─────────────────────────────────────── */
+.btn {
+  font-family: var(--font-b); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 12px 26px; cursor: pointer; border: none;
+  transition: all 0.2s; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-w { background: var(--white); color: #000; }
+.btn-w:hover { opacity: 0.85; }
+.btn-o { background: transparent; color: var(--white); border: 0.5px solid var(--line2); }
+.btn-o:hover { border-color: var(--white); }
+
+/* ── LOGO ────────────────────────────────────────── */
+.logo { display: flex; flex-direction: column; line-height: 1; cursor: default; }
+.logo-word {
+  font-family: var(--font-b); font-weight: 600; font-size: 20px;
+  letter-spacing: 0.28em; color: var(--white); text-transform: uppercase;
+}
+.logo-rule { height: 0.5px; background: var(--line2); margin: 5px 0 4px; }
+.logo-sub {
+  font-size: 8.5px; font-weight: 500; letter-spacing: 0.22em;
+  color: var(--muted); text-transform: uppercase;
+}
+
+/* ── HEADER ──────────────────────────────────────── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(12,12,12,0.93);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow 0.3s;
+}
+header.sc { box-shadow: 0 4px 30px rgba(0,0,0,0.4); }
+.hdr { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+nav { display: flex; gap: 2.5rem; align-items: center; }
+nav a {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted); transition: color 0.2s;
+}
+nav a:hover, nav a.act { color: var(--white); }
+.hdr-r { display: flex; align-items: center; gap: 1.5rem; }
+.phone { font-size: 14px; font-weight: 600; color: var(--white); white-space: nowrap; }
+
+/* ── HERO ────────────────────────────────────────── */
+.hero {
+  min-height: 100svh; padding-top: 66px;
+  display: flex; flex-direction: column;
+  justify-content: flex-end; position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: var(--bg2);
+}
+/* Декоративные дуги */
+.hero-bg::after {
+  content: ''; position: absolute; bottom: -45%; left: 50%;
+  transform: translateX(-50%); width: 140vw; height: 140vw;
+  border-radius: 50%; border: 0.5px solid rgba(255,255,255,0.045);
+}
+.hero-bg::before {
+  content: ''; position: absolute; bottom: -65%; left: 50%;
+  transform: translateX(-50%); width: 200vw; height: 200vw;
+  border-radius: 50%; border: 0.5px solid rgba(255,255,255,0.025);
+}
+.hero-ph {
+  position: absolute; inset: 66px 0 0;
+  background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-ph::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 25%, var(--bg) 100%);
+}
+.hero-ph-icon { opacity: 0.1; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.hero-ph-icon svg { width: 52px; height: 52px; }
+.hero-ph-icon span { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+.hero-body { position: relative; z-index: 2; padding: clamp(4rem,7vw,6rem) 0 clamp(3rem,5vw,4.5rem); }
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 1.75rem;
+}
+.hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--muted); }
+h1.hero-title {
+  font-family: var(--font-d); font-weight: 300; font-style: italic;
+  font-size: clamp(3.2rem,7.5vw,7rem);
+  line-height: 1.04; letter-spacing: -0.01em; color: var(--white);
+  max-width: 860px; margin-bottom: 1.75rem;
+}
+h1.hero-title em { font-style: normal; font-weight: 500; }
+.hero-sub {
+  font-size: 16px; font-weight: 500; color: var(--muted);
+  max-width: 460px; line-height: 1.75; margin-bottom: 2.75rem;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; right: clamp(1.25rem,5vw,3rem);
+  z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted);
+}
+.scroll-ln {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--muted), transparent);
+  animation: scDn 2s ease-in-out infinite;
+}
+@keyframes scDn {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  51%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ── MARQUEE 1 — типы профилей ───────────────────── */
+.marq1 { background: var(--bg3); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
+.marq1-inner { display: flex; align-items: center; height: 44px; }
+.marq-track {
+  display: inline-flex; align-items: center;
+  animation: marq 22s linear infinite; white-space: nowrap; flex-shrink: 0;
+}
+.marq-track.rev { animation-direction: reverse; animation-duration: 28s; }
+.mi {
+  display: inline-flex; align-items: center; gap: 20px;
+  padding: 0 32px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.md { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.25); flex-shrink: 0; }
+@keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── STATS ───────────────────────────────────────── */
+.stats { background: var(--bg2); border-bottom: 1px solid var(--line); }
+.stats-grid { display: grid; grid-template-columns: repeat(3,1fr); }
+.stat { padding: clamp(1.5rem,4vw,2.5rem) clamp(1.5rem,3vw,2.5rem); border-right: 1px solid var(--line); }
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-d); font-weight: 300;
+  font-size: clamp(2.8rem,5vw,4.5rem); line-height: 1; color: var(--white);
+}
+.stat-lbl { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+/* ── SERVICES ────────────────────────────────────── */
+.svc-hd { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: clamp(2.5rem,5vw,4rem); }
+.sec-t {
+  font-family: var(--font-d); font-weight: 300;
+  font-size: clamp(2.2rem,4vw,3.5rem); line-height: 1.1; color: var(--white);
+}
+.svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+.svc-card {
+  background: var(--bg); padding: clamp(2rem,4vw,3rem);
+  display: flex; flex-direction: column; gap: 1.25rem;
+  transition: background 0.3s; position: relative; overflow: hidden;
+}
+.svc-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px; background: var(--white);
+  transition: width 0.4s ease;
+}
+.svc-card:hover { background: var(--bg2); }
+.svc-card:hover::after { width: 100%; }
+.svc-photo { height: clamp(150px,18vw,210px); background: var(--bg3); margin: 0 calc(-1 * clamp(2rem,4vw,3rem)); margin-bottom: -0.5rem; display: flex; align-items: center; justify-content: center; }
+.svc-n { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; color: var(--muted); }
+.svc-name { font-family: var(--font-d); font-weight: 400; font-size: clamp(1.5rem,2.4vw,2rem); color: var(--white); line-height: 1.2; }
+.svc-desc { font-size: 15px; font-weight: 500; color: var(--muted); line-height: 1.75; flex: 1; }
+.svc-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.svc-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 0.5px solid var(--line2); padding: 4px 10px; }
+
+/* ── PORTFOLIO ───────────────────────────────────── */
+.pf-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: clamp(2.5rem,5vw,4rem); }
+.pf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line); }
+.pf-item { background: var(--bg3); aspect-ratio: 4/3; position: relative; overflow: hidden; cursor: pointer; }
+.pf-item:first-child { grid-column: span 2; aspect-ratio: 16/9; }
+.pf-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; opacity: 0.12; }
+.pf-ph svg { width: 28px; height: 28px; }
+.pf-ph span { font-size: 9px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+.pf-ov { position: absolute; inset: 0; background: rgba(12,12,12,0.78); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.25rem; opacity: 0; transition: opacity 0.3s; }
+.pf-item:hover .pf-ov { opacity: 1; }
+.pf-title { font-family: var(--font-d); font-size: 1.1rem; font-weight: 400; color: var(--white); }
+.pf-meta { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+.pf-foot { margin-top: 2rem; display: flex; justify-content: center; }
+
+/* ── PROCESS ─────────────────────────────────────── */
+.proc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); margin-top: clamp(2.5rem,5vw,4rem); }
+.proc-step { background: var(--bg); padding: 2rem 1.75rem; display: flex; flex-direction: column; gap: 1rem; }
+.proc-n { font-family: var(--font-d); font-size: 2rem; font-weight: 300; color: var(--line2); line-height: 1; }
+.proc-name { font-size: 14px; font-weight: 600; color: var(--white); }
+.proc-desc { font-size: 14px; font-weight: 500; color: var(--muted); line-height: 1.7; }
+
+/* ── ABOUT ───────────────────────────────────────── */
+.ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem,7vw,7rem); align-items: center; }
+.ab-photo { aspect-ratio: 4/5; background: var(--bg3); display: flex; align-items: center; justify-content: center; }
+.ab-txt { display: flex; flex-direction: column; gap: 1.5rem; }
+.ab-lead { font-family: var(--font-d); font-weight: 300; font-size: clamp(1.4rem,2.5vw,1.9rem); line-height: 1.4; color: var(--white); }
+.ab-body { font-size: 15px; font-weight: 500; color: var(--muted); line-height: 1.8; }
+.ab-lnk {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--white); display: inline-flex; align-items: center; gap: 8px;
+  border-bottom: 0.5px solid var(--line2); padding-bottom: 4px;
+  transition: border-color 0.2s, gap 0.2s; width: fit-content;
+}
+.ab-lnk:hover { border-color: var(--white); gap: 14px; }
+
+/* ── MARQUEE 2 — партнёры ────────────────────────── */
+.marq2 { background: var(--bg2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.marq2-hd { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.marq2-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+.marq2-body { overflow: hidden; padding: 1rem 0; }
+.pi { display: inline-flex; align-items: center; gap: 22px; padding: 0 36px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+.ps { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+
+/* ── FORM ────────────────────────────────────────── */
+.form-sec { background: var(--bg2); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem,7vw,7rem); align-items: start; }
+.form-lead { font-family: var(--font-d); font-weight: 300; font-size: clamp(1.8rem,3.2vw,2.8rem); line-height: 1.15; color: var(--white); margin-bottom: 1.5rem; }
+.form-note { font-size: 15px; font-weight: 500; color: var(--muted); line-height: 1.8; }
+.contacts { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.875rem; }
+.c-row { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
+.c-ico { flex-shrink: 0; width: 20px; color: var(--muted); margin-top: 2px; }
+.c-val { font-weight: 600; color: var(--white); }
+.c-val a { color: var(--white); }
+.c-val a:hover { opacity: 0.75; }
+.c-sub { font-size: 12px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+.form { display: flex; flex-direction: column; gap: 1px; }
+.ff input, .ff textarea {
+  width: 100%; background: var(--bg3); border: none; border-bottom: 0.5px solid var(--line2);
+  color: var(--white); font-family: var(--font-b); font-size: 14px; font-weight: 500;
+  padding: 17px 0; outline: none; transition: border-color 0.2s;
+}
+.ff textarea { resize: none; height: 110px; padding-top: 17px; }
+.ff input::placeholder, .ff textarea::placeholder { color: rgba(255,255,255,0.38); font-size: 13px; }
+.ff input:focus, .ff textarea:focus { border-color: rgba(255,255,255,0.55); }
+.consent-row { display: flex; align-items: flex-start; gap: 12px; margin: 1.5rem 0 1rem; cursor: pointer; }
+.cb-box { width: 16px; height: 16px; border: 0.5px solid var(--line2); flex-shrink: 0; margin-top: 2px; position: relative; transition: all 0.15s; }
+.cb-box.on { background: var(--white); border-color: var(--white); }
+.cb-box.on::after { content: ''; position: absolute; left: 4px; top: 1px; width: 5px; height: 9px; border: 1.5px solid #000; border-top: none; border-left: none; transform: rotate(45deg); }
+.consent-txt { font-size: 12px; font-weight: 500; color: var(--muted); line-height: 1.6; }
+.consent-txt a { color: var(--white); border-bottom: 0.5px solid var(--line2); }
+.form-sbmt { display: flex; align-items: center; gap: 1.5rem; }
+.form-priv { font-size: 10px; font-weight: 500; color: var(--muted); line-height: 1.6; max-width: 220px; }
+#sbtn:disabled { opacity: 0.35; cursor: not-allowed; }
+.form-ok { display: none; padding: 1.5rem; border: 0.5px solid var(--line2); text-align: center; margin-top: 1rem; }
+.form-ok.show { display: block; }
+.form-ok strong { font-family: var(--font-d); font-size: 1.2rem; font-weight: 400; color: var(--white); display: block; margin-bottom: 0.4rem; }
+.form-ok p { font-size: 14px; font-weight: 500; color: var(--muted); }
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer { background: var(--bg); border-top: 1px solid var(--line); padding: clamp(2.5rem,5vw,4rem) 0 2rem; }
+.foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.foot-desc { font-size: 13px; font-weight: 500; color: var(--muted); line-height: 1.7; margin-top: 1rem; max-width: 260px; }
+.foot-t { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
+.foot-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.foot-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+.foot-links a:hover { color: var(--white); }
+.foot-bot { border-top: 1px solid var(--line); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.foot-copy { font-size: 12px; font-weight: 500; color: var(--muted); }
+.foot-gk { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.foot-gk a { transition: color 0.2s; }
+.foot-gk a:hover { color: var(--white); }
+
+/* ── STICKY ──────────────────────────────────────── */
+.sticky { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99; opacity: 0; transform: translateY(10px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
+.sticky.on { opacity: 1; transform: none; pointer-events: all; }
+
+/* ── ANIMATIONS ──────────────────────────────────── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+.fu { opacity: 1; }
+.fu.ready { opacity: 0; }
+.fu.ready.in { animation: fadeUp 0.65s ease forwards; }
+.fu.ready.d1.in { animation-delay: 0.1s; }
+.fu.ready.d2.in { animation-delay: 0.2s; }
+.fu.ready.d3.in { animation-delay: 0.3s; }
+.fu.ready.in { animation: fadeUp 0.65s ease forwards; }
+.fu.d1.in { animation-delay: 0.1s; }
+.fu.d2.in { animation-delay: 0.2s; }
+.fu.d3.in { animation-delay: 0.3s; }
+.fu.d4.in { animation-delay: 0.4s; }
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 900px) {
+  nav { display: none; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .pf-grid { grid-template-columns: 1fr 1fr; }
+  .pf-item:first-child { grid-column: span 2; }
+  .proc-grid { grid-template-columns: 1fr 1fr; }
+  .ab-grid, .form-grid, .pf-intro { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: 1px solid var(--line); }
+  .stat:last-child { border-bottom: none; }
+}
+@media (max-width: 560px) {
+  .pf-grid { grid-template-columns: 1fr; }
+  .pf-item:first-child { grid-column: span 1; aspect-ratio: 4/3; }
+  .proc-grid { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr; }
+}
+.addr-lnk { color: inherit; border-bottom: 0.5px solid var(--line2); transition: opacity 0.2s; }
+.addr-lnk:hover { opacity: 0.7; }
+
+
+.page-hero { padding: 120px 0 70px; background: var(--bg2); border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+.page-hero::before { content: ''; position: absolute; bottom: -50%; right: -10%; width: 60vw; height: 60vw; border-radius: 50%; border: 0.5px solid rgba(255,255,255,0.04); }
+.bc { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
+.bc a:hover { color: var(--white); }
+.bc-sep { opacity: 0.3; }
+.pg-title { font-family: var(--font-d); font-weight: 300; font-style: italic; font-size: clamp(2.8rem,6vw,5.5rem); line-height: 1.05; color: var(--white); margin-bottom: 1.5rem; }
+.pg-desc { font-size: 16px; font-weight: 500; color: var(--muted); max-width: 540px; line-height: 1.75; }
+.page-layout { max-width: var(--max); margin: 0 auto; padding: clamp(3rem,6vw,6rem) clamp(1.25rem,5vw,3rem); display: grid; grid-template-columns: 240px 1fr; gap: 5rem; align-items: start; }
+.sidebar { position: sticky; top: 88px; }
+.sb-t { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
+.sb-nav { list-style: none; padding: 0; border-left: 0.5px solid var(--line); }
+.sb-nav a { display: block; padding: 9px 0 9px 1.25rem; font-size: 13px; font-weight: 500; color: var(--muted); transition: color 0.2s, border-color 0.2s; border-left: 1.5px solid transparent; margin-left: -0.5px; line-height: 1.4; }
+.sb-nav a:hover { color: var(--white); }
+.sb-nav a.act { color: var(--white); border-left-color: var(--white); }
+.sb-cta { margin-top: 2.5rem; padding: 1.5rem; border: 0.5px solid var(--line2); background: var(--bg2); }
+.sb-cta p { font-size: 12px; font-weight: 500; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+.sb-cta strong { display: block; font-family: var(--font-d); font-size: 1rem; font-weight: 400; color: var(--white); margin-bottom: 0.5rem; }
+.art-sec { padding-top: 0.5rem; margin-bottom: 5rem; scroll-margin-top: 88px; }
+.art-sec:last-child { margin-bottom: 0; }
+.eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+.art-sec h2 { font-family: var(--font-d); font-weight: 300; font-size: clamp(1.8rem,3vw,2.8rem); line-height: 1.1; color: var(--white); margin-bottom: 1.75rem; }
+.art-sec h3 { font-family: var(--font-d); font-weight: 400; font-size: 1.3rem; color: var(--white); margin: 2.5rem 0 0.75rem; }
+.art-sec p { font-size: 15px; font-weight: 500; color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
+.art-sec p strong { color: var(--white); font-weight: 600; }
+.art-div { height: 1px; background: var(--line); margin: 4rem 0; }
+.art-hl { border-left: 1.5px solid var(--white); padding: 1.25rem 1.5rem; background: var(--bg2); margin: 2rem 0; }
+.art-hl p { margin: 0; font-size: 14px; color: var(--muted); font-style: italic; }
+.art-hl p strong { color: var(--white); font-style: normal; }
+.art-schema { background: var(--bg2); border: 0.5px solid var(--line2); padding: 2.5rem; margin: 2rem 0; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+.art-schema figcaption { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: center; opacity: 0.75; }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); margin: 2rem 0; }
+.card { background: var(--bg); padding: 1.75rem; transition: background 0.2s; }
+.card:hover { background: var(--bg2); }
+.card-n { font-family: var(--font-d); font-size: 11px; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 0.75rem; }
+.card h4 { font-family: var(--font-d); font-weight: 400; font-size: 1.1rem; color: var(--white); margin-bottom: 0.6rem; line-height: 1.3; }
+.card p { font-size: 13px; font-weight: 500; color: var(--muted); line-height: 1.75; margin: 0; }
+.art-tbl { width: 100%; border-collapse: collapse; margin: 1.5rem 0 2rem; font-size: 14px; }
+.art-tbl thead tr { border-bottom: 0.5px solid var(--line2); }
+.art-tbl th { text-align: left; padding: 9px 12px 9px 0; font-weight: 600; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+.art-tbl td { padding: 0.85rem 1rem 0.85rem 0; color: var(--muted); font-weight: 500; border-bottom: 0.5px solid var(--line); line-height: 1.6; vertical-align: top; }
+.art-tbl td:first-child { color: var(--white); font-weight: 600; white-space: nowrap; }
+.art-tbl tr:last-child td { border-bottom: none; }
+.art-ul { list-style: none; margin: 0.75rem 0 1.25rem; padding: 0; }
+.art-ul li { font-size: 14px; font-weight: 500; color: var(--muted); line-height: 1.8; padding-left: 1.25rem; position: relative; margin-bottom: 0.25rem; }
+.art-ul li::before { content: '—'; position: absolute; left: 0; color: rgba(255,255,255,0.2); }
+.art-ul li strong { color: var(--white); font-weight: 600; }
+.faq-item { border-bottom: 0.5px solid var(--line); padding: 1.5rem 0; }
+.faq-item:first-child { border-top: 0.5px solid var(--line); }
+.faq-q { font-family: var(--font-d); font-weight: 400; font-size: 1.05rem; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; user-select: none; }
+.faq-q::after { content: '+'; font-family: var(--font-b); font-weight: 300; font-size: 1.2rem; color: var(--muted); flex-shrink: 0; transition: transform 0.2s; }
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a { font-size: 14px; font-weight: 500; color: var(--muted); max-height: 0; overflow: hidden; transition: max-height 0.3s ease, margin 0.3s ease; line-height: 1.8; }
+.faq-item.open .faq-a { max-height: 500px; margin-top: 1rem; }
+.bot-cta { background: var(--bg2); border-top: 1px solid var(--line); padding: clamp(3rem,6vw,5rem) 0; }
+.cta-row { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.cta-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+.cta-t { font-family: var(--font-d); font-weight: 300; font-size: clamp(1.5rem,3vw,2.5rem); line-height: 1.15; color: var(--white); }
+.addr-lnk { color: inherit; border-bottom: 0.5px solid var(--line2); transition: opacity 0.2s; }
+.addr-lnk:hover { opacity: 0.7; }
+@media (max-width: 900px) { nav { display: none; } .page-layout { grid-template-columns: 1fr; gap: 3rem; } .sidebar { position: static; } .sb-nav { display: none; } .cards { grid-template-columns: 1fr; } .cta-row { flex-direction: column; align-items: flex-start; } }
+
+</style>
+</head>
+<body>
+<div class="sticky" id="stk">
+  <button class="btn btn-w" onclick="goForm()">Оставить заявку</button>
+</div>
+<!-- HEADER -->
+<header id="hdr">
+  <div class="wrap">
+    <div class="hdr">
+      <a href="index.html" class="logo">
+        <div class="logo-word">Радиус</div>
+        <div class="logo-rule"></div>
+        <div class="logo-sub">Производственная компания</div>
+      </a>
+      <nav>
+        <a href="index.html#services">Услуги</a>
+        <a href="about.html">О компании</a>
+        <a href="spravochnik.html" class="act">Справочник</a>
+        <a href="index.html#portfolio">Портфолио</a>
+        <a href="index.html#form">Контакты</a>
+      </nav>
+      <div class="hdr-r">
+        <a href="tel:+79853105757" class="phone">+7 (985) 310-57-57</a>
+        <button class="btn btn-w" onclick="goForm()">Заявка</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <h1 class="pg-title fu d1">Справочник<br>по гибке металла</h1>
+    <p class="pg-desc fu d2">Технология, виды, материалы, допуски и применение радиусной гибки профилей и листового металла.</p>
+  </div>
+</section>
+
+<div class="page-layout">
+  <aside class="sidebar">
+    <p class="sb-t">Содержание</p>
+    <ul class="sb-nav">
+      <li><a href="#s1" class="act">Что такое гибка</a></li>
+      <li><a href="#s2">Технология процесса</a></li>
+      <li><a href="#s3">Виды гибки</a></li>
+      <li><a href="#s4">Материалы</a></li>
+      <li><a href="#s5">Применение</a></li>
+      <li><a href="#s6">Допуски и точность</a></li>
+      <li><a href="#s7">Вопросы и ответы</a></li>
+    </ul>
+    <div class="sb-cta">
+      <strong>Нужна гибка?</strong>
+      <p>Пришлите чертёж или опишите задачу — рассчитаем бесплатно</p>
+      <button class="btn btn-w" style="width:100%" onclick="location.href='index.html#form'">Оставить заявку</button>
+    </div>
+  </aside>
+
+  <article>
+    <section class="art-sec fu" id="s1">
+      <p class="eyebrow">01 — Основы</p>
+      <h2>Что такое гибка металла</h2>
+      <p><strong>Гибка металла</strong> — технологическая операция, при которой заготовка изгибается по заданному радиусу без нарушения целостности материала. В отличие от сварки, гибка не создаёт швов и не меняет химический состав металла.</p>
+      <p>Наружные слои <strong>растягиваются</strong>, внутренние — <strong>сжимаются</strong>. Между ними находится нейтральная ось, по которой рассчитывается длина заготовки.</p>
+      <div class="art-hl"><p><strong>Почему гибка лучше сварки?</strong> Нет шва — нет концентраторов напряжений, нет риска коррозии по шву, не нужна зачистка.</p></div>
+      <figure class="art-schema">
+        <svg viewBox="0 0 600 230" width="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+          <rect x="28" y="76" width="172" height="16" rx="1" fill="#e8622c"/>
+          <rect x="28" y="92" width="172" height="22" fill="#ffffff" opacity="0.15"/>
+          <rect x="28" y="76" width="172" height="60" rx="2" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.6"/>
+          <rect x="28" y="114" width="172" height="16" rx="1" fill="#4a9eff" opacity="0.9"/>
+          <line x1="28" y1="103" x2="200" y2="103" stroke="#ffffff" stroke-width="1" stroke-dasharray="5 3" opacity="0.45"/>
+          <text x="18" y="87" text-anchor="end" font-family="Jost,sans-serif" font-size="10" fill="#e8622c" font-weight="600">↑ растяжение</text>
+          <text x="18" y="123" text-anchor="end" font-family="Jost,sans-serif" font-size="10" fill="#4a9eff" font-weight="600">↓ сжатие</text>
+          <text x="114" y="158" text-anchor="middle" font-family="Jost,sans-serif" font-size="12" fill="#ffffff" font-weight="600" letter-spacing="1.5">ДО ГИБКИ</text>
+          <line x1="212" y1="103" x2="262" y2="103" stroke="#ffffff" stroke-width="2" marker-end="url(#arr)"/>
+          <path d="M282 215 A100 100 0 0 1 482 215" stroke="#e8622c" stroke-width="14" stroke-linecap="butt" fill="none"/>
+          <path d="M282 215 A100 100 0 0 1 482 215" stroke="#ffffff" stroke-width="28" fill="none" opacity="0.1"/>
+          <path d="M294 215 A88 88 0 0 1 470 215" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <path d="M300 215 A82 82 0 0 1 464 215" stroke="#4a9eff" stroke-width="12" fill="none" opacity="0.9"/>
+          <path d="M291 215 A91 91 0 0 1 473 215" stroke="#ffffff" stroke-width="1" stroke-dasharray="5 3" fill="none" opacity="0.4"/>
+          <text x="492" y="168" font-family="Jost,sans-serif" font-size="11" fill="#e8622c" font-weight="600">растяжение</text>
+          <text x="492" y="210" font-family="Jost,sans-serif" font-size="11" fill="#4a9eff" font-weight="600">сжатие</text>
+          <text x="382" y="228" text-anchor="middle" font-family="Jost,sans-serif" font-size="12" fill="#ffffff" font-weight="600" letter-spacing="1.5">ПОСЛЕ ГИБКИ</text>
+        </svg>
+        <figcaption>Оранжевый — растяжение · Синий — сжатие · Пунктир — нейтральная ось</figcaption>
+      </figure>
+    </section>
+
+    <div class="art-div"></div>
+
+    <section class="art-sec fu" id="s2">
+      <p class="eyebrow">02 — Технология</p>
+      <h2>Как устроен процесс гибки</h2>
+      <p>Гибка выполняется на <strong>трёхвалковых профилегибочных станках</strong> швейцарской компании Profilbiegetechnik AG.</p>
+      <h3>Принцип работы</h3>
+      <p>Профиль зажимается между двумя фронтальными вальцами и одним центральным. Центральный валец смещается, создавая изгибающий момент — это называется <strong>одним проходом</strong>.</p>
+      <div class="art-hl"><p><strong>Важно:</strong> камеры профиля заполняются специальным песком чтобы профиль не «схлопнулся» изнутри. После гибки песок высыпается.</p></div>
+      <figure class="art-schema">
+        <svg viewBox="0 0 560 300" width="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="rgba(200,196,187,0.9)" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+          <rect x="60" y="246" width="440" height="14" rx="2" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+          <rect x="90" y="220" width="10" height="26" fill="rgba(255,255,255,0.12)"/>
+          <rect x="460" y="220" width="10" height="26" fill="rgba(255,255,255,0.12)"/>
+          <circle cx="160" cy="145" r="44" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
+          <circle cx="160" cy="145" r="5" fill="rgba(255,255,255,0.7)"/>
+          <text x="160" y="274" text-anchor="middle" font-family="Jost,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" font-weight="600">Вал 1</text>
+          <circle cx="400" cy="145" r="44" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
+          <circle cx="400" cy="145" r="5" fill="rgba(255,255,255,0.7)"/>
+          <text x="400" y="274" text-anchor="middle" font-family="Jost,sans-serif" font-size="10" fill="rgba(255,255,255,0.75)" font-weight="600">Вал 2</text>
+          <circle cx="280" cy="195" r="36" fill="rgba(255,255,255,0.08)" stroke="rgba(200,196,187,0.9)" stroke-width="1.5"/>
+          <circle cx="280" cy="195" r="5" fill="rgba(200,196,187,0.7)"/>
+          <line x1="280" y1="158" x2="280" y2="136" stroke="rgba(200,196,187,0.9)" stroke-width="1.5" marker-end="url(#ma)"/>
+          <text x="296" y="150" font-family="Jost,sans-serif" font-size="9" fill="rgba(200,196,187,0.85)" font-weight="600">подъём</text>
+          <text x="280" y="274" text-anchor="middle" font-family="Jost,sans-serif" font-size="10" fill="rgba(200,196,187,0.85)" font-weight="600">Вал 3 (подвижный)</text>
+          <path d="M 50 143 L 116 143" stroke="rgba(255,255,255,0.85)" stroke-width="5" stroke-linecap="round"/>
+          <path d="M 116 143 Q 280 175 444 143" stroke="rgba(255,255,255,0.85)" stroke-width="5" fill="none"/>
+          <path d="M 444 143 L 510 143" stroke="rgba(255,255,255,0.85)" stroke-width="5" stroke-linecap="round"/>
+          <text x="280" y="118" text-anchor="middle" font-family="Jost,sans-serif" font-size="11" fill="#ffffff" font-weight="700">R — задаётся смещением вала 3</text>
+        </svg>
+        <figcaption>Схема трёхвалкового профилегибочного станка</figcaption>
+      </figure>
+    </section>
+
+    <div class="art-div"></div>
+
+    <section class="art-sec fu" id="s3">
+      <p class="eyebrow">03 — Виды</p>
+      <h2>Виды гибки профилей</h2>
+      <div class="cards">
+        <div class="card"><div class="card-n">01</div><h4>Гибка по X (плашмя)</h4><p>Изгиб в плоскости большего сечения. Арочные окна, фасадные конструкции.</p></div>
+        <div class="card"><div class="card-n">02</div><h4>Гибка по Y (на ребро)</h4><p>Изгиб в плоскости меньшего сечения. Перила, рамы.</p></div>
+        <div class="card"><div class="card-n">03</div><h4>Двухплоскостная гибка</h4><p>Одновременная гибка по X и Y. Пространственная кривая.</p></div>
+        <div class="card"><div class="card-n">04</div><h4>3D-гибка</h4><p>Трёхмерная гибка с переменным радиусом. Самый сложный вид.</p></div>
+      </div>
+      <div class="art-hl"><p><strong>Минимальный радиус</strong> для большинства алюминиевых системных профилей — от <strong>220 мм</strong>.</p></div>
+    </section>
+
+    <div class="art-div"></div>
+
+    <section class="art-sec fu" id="s4">
+      <p class="eyebrow">04 — Материалы</p>
+      <h2>Материалы для гибки</h2>
+      <table class="art-tbl">
+        <thead><tr><th>Материал</th><th>Особенности</th><th>Применение</th></tr></thead>
+        <tbody>
+          <tr><td>Алюминий</td><td>Пластичный, хорошо гнётся холодным способом. Системные профили требуют заполнения песком.</td><td>Окна, фасады, витрины, перегородки</td></tr>
+          <tr><td>Сталь Ст3</td><td>Требует большего усилия.</td><td>Металлоконструкции, ворота, ограждения</td></tr>
+          <tr><td>Нержавеющая сталь</td><td>Высокая прочность, склонна к пружинению.</td><td>Пищевые производства, медицина, декор</td></tr>
+          <tr><td>Медь и латунь</td><td>Пластичны, гнутся легко.</td><td>Декоративные элементы, архитектура</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="art-div"></div>
+
+    <section class="art-sec fu" id="s5">
+      <p class="eyebrow">05 — Применение</p>
+      <h2>Где применяется гибка профилей</h2>
+      <div class="cards">
+        <div class="card"><div class="card-n">01</div><h4>Фасады и остекление</h4><p>Арочные фасады, круглые витрины, радиусные перегородки.</p></div>
+        <div class="card"><div class="card-n">02</div><h4>Кровля и навесы</h4><p>Арочные кровли, куполообразные навесы, козырьки.</p></div>
+        <div class="card"><div class="card-n">03</div><h4>Лестницы и ограждения</h4><p>Перила с плавными изгибами, поручни, декоративные ограждения.</p></div>
+        <div class="card"><div class="card-n">04</div><h4>Интерьер и мебель</h4><p>Рамы зеркал, детали мебели, торговое оборудование.</p></div>
+        <div class="card"><div class="card-n">05</div><h4>Промышленность</h4><p>Трубопроводы, змеевики теплообменников.</p></div>
+        <div class="card"><div class="card-n">06</div><h4>Спортивные объекты</h4><p>Арочные перекрытия стадионов, кровли ледовых арен.</p></div>
+      </div>
+    </section>
+
+    <div class="art-div"></div>
+
+    <section class="art-sec fu" id="s6">
+      <p class="eyebrow">06 — Точность</p>
+      <h2>Допуски и точность гибки</h2>
+      <table class="art-tbl">
+        <thead><tr><th>Параметр</th><th>Допуск</th><th>Примечание</th></tr></thead>
+        <tbody>
+          <tr><td>Радиус гибки</td><td>±2–5 мм</td><td>Зависит от радиуса и типа профиля</td></tr>
+          <tr><td>Длина развёртки</td><td>±3 мм / 1000 мм</td><td>Влияет на порезку</td></tr>
+          <tr><td>Технологический припуск</td><td>150–400 мм</td><td>Прямые концы профиля</td></tr>
+          <tr><td>Угол дуги</td><td>±1°</td><td>При гибке на угол</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="art-div"></div>
+
+    <section class="art-sec fu" id="s7">
+      <p class="eyebrow">07 — Вопросы и ответы</p>
+      <h2>Часто задаваемые вопросы</h2>
+      <div class="faq-item"><div class="faq-q">Можно ли гнуть под очень маленький радиус?</div><div class="faq-a">Для большинства системных алюминиевых профилей — от 220 мм. Перед запуском производим пробный образец.</div></div>
+      <div class="faq-item"><div class="faq-q">Как правильно указать параметры в чертеже?</div><div class="faq-a">Укажите: тип профиля, материал, направление гибки (X или Y), радиус, угол дуги, длину заготовки, количество. Есть DWG или PDF — пришлите, разберёмся вместе.</div></div>
+      <div class="faq-item"><div class="faq-q">Принимаете заказы от одной штуки?</div><div class="faq-a">Да, работаем без минимального тиража — от одной штуки.</div></div>
+      <div class="faq-item"><div class="faq-q">Можете согнуть наш профиль?</div><div class="faq-a">Да. Работаем как с нашим материалом, так и с материалом заказчика. Профиль должен быть без механических повреждений.</div></div>
+      <div class="faq-item"><div class="faq-q">Сколько времени занимает производство?</div><div class="faq-a">Стандартно — 3–7 рабочих дней. Срочно — 1–2 дня, обсуждается индивидуально.</div></div>
+    </section>
+  </article>
+</div>
+
+<section class="bot-cta">
+  <div class="wrap">
+    <div class="cta-row">
+      <div><p class="cta-lbl">Есть задача?</p><h2 class="cta-t">Рассчитаем стоимость<br>бесплатно и без обязательств</h2></div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap"><button class="btn btn-w" onclick="location.href='index.html#form'">Оставить заявку</button><a href="tel:+79853105757" class="btn btn-o">+7 (985) 310-57-57</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="margin-bottom:1.25rem">
+          <div class="logo-word">Радиус</div>
+          <div class="logo-rule"></div>
+          <div class="logo-sub">Производственная компания</div>
+        </div>
+        <p class="foot-desc">Гибка алюминиевых и стальных профилей любой сложности.</p>
+      </div>
+      <div>
+        <div class="foot-t">Услуги</div>
+        <ul class="foot-links">
+          <li><a href="#services">Гибка профилей</a></li>
+          <li><a href="#services">Гибка листового металла</a></li>
+          <li><a href="#">Доставка</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-t">Компания</div>
+        <ul class="foot-links">
+          <li><a href="about.html">О нас</a></li>
+          <li><a href="#portfolio">Портфолио</a></li>
+          <li><a href="spravochnik.html">Справочник</a></li>
+          <li><a href="policy.html">Политика конф.</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-t">Контакты</div>
+        <ul class="foot-links">
+          <li><a href="tel:+79853105757">8 (985) 310-57-57</a></li>
+          <li><a href="tel:+74955013211">8-495-501-32-11</a></li>
+          <li><a href="tel:+74955013236">8-495-501-32-36 (доб. 113)</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#e292899083868b9791a29b838c86879acc9097"><span class="__cf_email__" data-cfemail="85f5eef7e4e1ecf0f6c5fce4ebe1e0fdabf7f0">[email&#160;protected]</span></a></li>
+          <li style="color:rgba(255,255,255,.45);font-size:12px;line-height:1.5"><a href="https://yandex.ru/maps/-/CPVeFK1d" target="_blank" class="addr-lnk">Касимовское ш., 3Г, корп. 1</a><br>р.п. Малаховка, Москва</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span class="foot-copy">© 2026 ПК Радиус. Все права защищены.</span>
+      <span class="foot-gk">Входит в <a href="https://pakon.ru" target="_blank">группу компаний ПАКОН</a></span>
+    </div>
+  </div>
+</footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const secs = document.querySelectorAll('.art-sec');
+const links = document.querySelectorAll('.sb-nav a');
+const o = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting) { links.forEach(l=>l.classList.remove('act')); const a=document.querySelector('.sb-nav a[href="#'+e.target.id+'"]'); if(a)a.classList.add('act'); } }); }, {rootMargin:'-30% 0px -60% 0px'});
+secs.forEach(s=>o.observe(s));
+document.querySelectorAll('.faq-item').forEach(item => { item.querySelector('.faq-q').addEventListener('click', () => { const open=item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open')); if(!open)item.classList.add('open'); }); });
+</script>
+<script>
+// Scroll effects
+window.addEventListener('scroll', () => {
+  document.getElementById('hdr').classList.toggle('sc', scrollY > 20);
+  document.getElementById('stk').classList.toggle('on', scrollY > 500);
+});
+
+// Fade-up on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll(".fu").forEach(el => el.classList.add("ready"));
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); obs.unobserve(e.target); } });
+}, { threshold: 0.07 });
+document.querySelectorAll(".fu").forEach(el => obs.observe(el));
+
+// Checkbox
+let checked = false;
+function toggleCb() {
+  checked = !checked;
+  document.getElementById('cb').classList.toggle('on', checked);
+  document.getElementById('sbtn').disabled = !checked;
+}
+
+// Form submit
+function sendForm(e) {
+  e.preventDefault();
+  docu
