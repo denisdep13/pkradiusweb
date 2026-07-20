@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Политика обработки персональных данных — Радиус</title>
-<meta name="description" content="Политика ООО «ПАКОН» в отношении обработки персональных данных пользователей сайта ПК Радиус.">
+<title>Портфолио — Радиус</title>
+<meta name="description" content="Реализованные проекты ПК Радиус — гибка металлических профилей. Арочные конструкции, фасады, частные объекты.">
 <link rel="stylesheet" href="fonts.css">
 <style>
 
@@ -439,28 +439,162 @@ footer { background: var(--bg); border-top: 1px solid var(--line); padding: clam
 }
 
 
-.page-wrap { max-width:860px; margin:0 auto; padding:120px clamp(1.25rem,5vw,3rem) 80px; }
-.doc-title { font-family:var(--font-d); font-weight:300; font-style:italic; font-size:clamp(2.2rem,5vw,4rem); line-height:1.05; color:var(--white); margin-bottom:.75rem; }
-.doc-date { font-size:12px; font-weight:500; color:var(--muted); margin-bottom:3.5rem; padding-bottom:2rem; border-bottom:1px solid var(--line); }
-.doc-sec { margin-bottom:2.75rem; }
-.doc-sec h2 { font-family:var(--font-d); font-weight:400; font-size:1.3rem; color:var(--white); margin-bottom:1rem; }
-.doc-sec p { font-size:15px; font-weight:500; color:var(--muted); line-height:1.85; margin-bottom:.75rem; }
-.doc-sec ul { list-style:none; margin:.5rem 0 .75rem; padding:0; }
-.doc-sec ul li { font-size:15px; font-weight:500; color:var(--muted); line-height:1.8; padding-left:1.25rem; position:relative; margin-bottom:.2rem; }
-.doc-sec ul li::before { content:'—'; position:absolute; left:0; color:rgba(255,255,255,0.2); }
-.doc-sec a { color:var(--white); border-bottom:.5px solid var(--line2); }
-.doc-foot { border-top:1px solid var(--line); padding-top:2rem; margin-top:3rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
-.doc-foot span { font-size:11px; font-weight:500; color:var(--muted); }
-.back-lnk { font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); transition:color .2s; }
-.back-lnk:hover { color:var(--white); }
-@media(max-width:900px){ nav{display:none} }
 
-/* ── SCROLL REVEAL ─────────────────────────────────── */
-.sr { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.sr.visible { opacity: 1; transform: none; }
-.sr-d1 { transition-delay: 0.1s; }
-.sr-d2 { transition-delay: 0.2s; }
-.sr-d3 { transition-delay: 0.3s; }
+/* ── PORTFOLIO PAGE ──────────────────────────── */
+.pf-page-hero {
+  padding: 130px 0 60px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--line);
+  position: relative; overflow: hidden;
+}
+.pf-page-hero::before {
+  content: ''; position: absolute;
+  bottom: -60%; right: -20%;
+  width: 80vw; height: 80vw;
+  border-radius: 50%;
+  border: 0.5px solid rgba(255,255,255,0.04);
+}
+.pf-page-title {
+  font-family: var(--font-d); font-weight: 300; font-style: italic;
+  font-size: clamp(3rem,7vw,6rem); line-height: 1.05;
+  color: var(--white); margin-bottom: 1.25rem;
+}
+.pf-page-desc {
+  font-size: 16px; font-weight: 500; color: var(--muted);
+  max-width: 520px; line-height: 1.75;
+}
+
+/* Фильтры */
+.pf-filters {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  padding: 1.75rem 0; border-bottom: 1px solid var(--line);
+  margin-bottom: 2.5rem;
+}
+.pf-filter {
+  font-family: var(--font-b); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 8px 20px; cursor: pointer;
+  border: 0.5px solid var(--line2); background: none;
+  color: var(--muted); transition: all 0.2s;
+}
+.pf-filter:hover { color: var(--white); border-color: var(--white); }
+.pf-filter.on { background: var(--white); color: #000; border-color: var(--white); }
+
+/* Сетка портфолио */
+.pf-full-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+}
+.pf-card {
+  position: relative; overflow: hidden;
+  cursor: pointer; background: var(--bg3);
+  aspect-ratio: 4/3;
+  transition: transform 0.4s ease;
+}
+.pf-card.wide { grid-column: span 2; aspect-ratio: 16/9; }
+.pf-card.tall { grid-row: span 2; aspect-ratio: 3/4; }
+.pf-card img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.6s ease;
+}
+.pf-card:hover img { transform: scale(1.04); }
+.pf-card-ph {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px; opacity: 0.1;
+}
+.pf-card-ph svg { width: 32px; height: 32px; }
+.pf-card-ph span { font-size: 9px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+.pf-card-info {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 1.5rem;
+  opacity: 0; transition: opacity 0.35s ease;
+}
+.pf-card:hover .pf-card-info { opacity: 1; }
+.pf-card-cat {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.pf-card-name {
+  font-family: var(--font-d); font-size: 1.2rem;
+  font-weight: 400; color: var(--white); line-height: 1.3;
+}
+.pf-card-year {
+  font-size: 11px; font-weight: 500; color: var(--muted);
+  margin-top: 4px;
+}
+
+/* Лайтбокс */
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.95); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center; padding: 2rem;
+}
+.lightbox.open { display: flex; }
+.lightbox-img {
+  max-width: 90vw; max-height: 85vh;
+  object-fit: contain; border-radius: 2px;
+  animation: lbIn 0.3s ease;
+}
+@keyframes lbIn { from { opacity:0; transform: scale(0.96); } to { opacity:1; transform: none; } }
+.lightbox-close {
+  position: absolute; top: 1.5rem; right: 1.5rem;
+  width: 44px; height: 44px; border: 0.5px solid var(--line2);
+  background: none; color: var(--white); cursor: pointer;
+  font-size: 22px; display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s;
+}
+.lightbox-close:hover { border-color: var(--white); }
+.lightbox-info {
+  position: absolute; bottom: 2rem; left: 50%;
+  transform: translateX(-50%); text-align: center;
+}
+.lightbox-name {
+  font-family: var(--font-d); font-size: 1.2rem;
+  font-weight: 400; color: var(--white);
+}
+.lightbox-cat {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); margin-top: 4px;
+}
+
+/* CTA */
+.pf-cta {
+  background: var(--bg2); border-top: 1px solid var(--line);
+  padding: clamp(3rem,6vw,5rem) 0;
+}
+.pf-cta-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+}
+.pf-cta-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+.pf-cta-t { font-family: var(--font-d); font-weight: 300; font-size: clamp(1.5rem,3vw,2.5rem); line-height: 1.15; color: var(--white); }
+
+/* Empty placeholder */
+.pf-empty {
+  grid-column: 1 / -1; padding: 4rem;
+  text-align: center; color: var(--muted);
+  font-size: 14px; font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  nav { display: none !important; }
+  .pf-full-grid { grid-template-columns: 1fr 1fr; }
+  .pf-card.wide { grid-column: span 2; }
+  .pf-card.tall { grid-row: span 1; aspect-ratio: 4/3; }
+  .pf-cta-inner { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 560px) {
+  .pf-full-grid { grid-template-columns: 1fr; }
+  .pf-card.wide { grid-column: span 1; aspect-ratio: 4/3; }
+  .pf-card-info { opacity: 1; }
+}
+
 </style>
 </head>
 <body>
@@ -482,7 +616,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); padding: clam
         <a href="index.html#services">Услуги</a>
         <a href="about.html">О компании</a>
         <a href="spravochnik.html">Справочник</a>
-        <a href="portfolio.html">Портфолио</a>
+        <a href="portfolio.html" class="act">Портфолио</a>
         <a href="index.html#form">Контакты</a>
       </nav>
       <div class="hdr-r">
@@ -495,62 +629,137 @@ footer { background: var(--bg); border-top: 1px solid var(--line); padding: clam
     </div>
   </div>
 </header>
+
+<!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
   <a href="tel:+79853105757" class="mob-menu-phone">+7 (985) 310-57-57</a>
   <a href="index.html#services">Услуги</a>
   <a href="about.html">О компании</a>
   <a href="spravochnik.html">Справочник</a>
-  <a href="portfolio.html">Портфолио</a>
+  <a href="portfolio.html" class="act">Портфолио</a>
   <a href="index.html#form">Контакты</a>
-  <button class="btn btn-w mob-menu-btn" onclick="location.href='index.html#form'">Оставить заявку</button>
+  <button class="btn btn-w mob-menu-btn" onclick="this.closest('.mob-menu').classList.remove('open');document.getElementById('burger').classList.remove('open');location.href='index.html#form'">Оставить заявку</button>
 </div>
 
-<div class="page-wrap">
-  <h1 class="doc-title sr">Политика обработки персональных данных</h1>
-  <p class="doc-date">Редакция от 10 июля 2026 года</p>
 
-  <div class="doc-sec"><h2>1. Общие положения</h2>
-  <p>Настоящая Политика действует в отношении сайта <strong style="color:var(--white)">pk-radius.ru</strong> (далее — Сайт) и описывает порядок обработки персональных данных его посетителей.</p>
-  <p>Оператор персональных данных: Общество с ограниченной ответственностью «ПАКОН» (ООО «ПАКОН»), ИНН 7722531370, ОГРН 1047796896025, КПП 502701001. Адрес: 140030, Московская область, г. Люберцы, пгт Малаховка, Касимовское шоссе, д. 3Г. «ПК Радиус» является обозначением направления деятельности Оператора.</p>
-  <p>Политика составлена с учётом Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных». Ознакомление с Политикой само по себе не заменяет отдельное согласие, когда такое согласие требуется законом.</p></div>
-
-  <div class="doc-sec"><h2>2. Какие данные могут обрабатываться</h2>
-  <ul><li>имя, номер телефона, адрес электронной почты, наименование компании и должность — если посетитель сам укажет их при обращении;</li><li>содержание обращения, параметры заказа и файлы, которые посетитель добровольно направит по электронной почте;</li><li>технические данные: IP-адрес, дата и время обращения к Сайту, тип браузера и устройства, запрошенные страницы и адрес страницы-источника.</li></ul>
-  <p>На Сайте нет веб-формы, которая автоматически отправляет заявку Оператору. Файлы Excel скачиваются на устройство посетителя, а письмо или звонок совершаются через выбранное посетителем приложение. Сайт не использует счётчики аналитики и рекламные трекеры.</p>
-  <p>Оператор не запрашивает через Сайт специальные категории и биометрические персональные данные.</p></div>
-
-  <div class="doc-sec"><h2>3. Цели обработки</h2>
-  <ul><li>ответ на обращение, консультация и уточнение параметров заказа;</li><li>подготовка коммерческого предложения, заключение и исполнение договора;</li><li>обеспечение работоспособности и безопасности Сайта, разбор технических ошибок и попыток неправомерного доступа;</li><li>исполнение обязанностей, установленных законодательством Российской Федерации.</li></ul></div>
-
-  <div class="doc-sec"><h2>4. Правовые основания</h2>
-  <p>Обработка осуществляется на основании согласия субъекта персональных данных, когда оно необходимо, для заключения или исполнения договора по инициативе субъекта, а также в случаях исполнения обязанностей Оператора, установленных законом. Посетитель самостоятельно определяет объём данных, передаваемых в письме или сообщаемых по телефону.</p></div>
-
-  <div class="doc-sec"><h2>5. Действия с данными и способы обработки</h2>
-  <p>Оператор может осуществлять сбор, запись, систематизацию, накопление, хранение, уточнение, извлечение, использование, предоставление в предусмотренных законом случаях, блокирование, удаление и уничтожение данных. Обработка может выполняться автоматизированным, неавтоматизированным или смешанным способом.</p></div>
-
-  <div class="doc-sec"><h2>6. Хранение и локализация</h2>
-  <p>При сборе данных граждан Российской Федерации запись, систематизация, накопление, хранение, уточнение и извлечение выполняются с использованием баз данных на территории Российской Федерации. Данные хранятся не дольше, чем этого требуют заявленные цели или обязательные сроки по закону и договору. После достижения цели, отзыва согласия при отсутствии другого законного основания или поступления обоснованного требования данные удаляются или уничтожаются в установленные законом сроки.</p></div>
-
-  <div class="doc-sec"><h2>7. Передача третьим лицам и внешние сервисы</h2>
-  <p>Данные могут быть доступны российским поставщикам хостинга и электронной почты, действующим по договору с Оператором, а также государственным органам в случаях, установленных законом. Для исполнения заказа данные могут передаваться перевозчику или иному исполнителю только в необходимом объёме. Оператор не продаёт персональные данные и не передаёт их для чужой рекламы.</p>
-  <p>На страницах Сайта встроена карта ООО «ЯНДЕКС». При загрузке карты браузер посетителя устанавливает соединение с сервисом Яндекса, который может обрабатывать IP-адрес, сведения об устройстве и файлы cookie по собственной <a href="https://yandex.ru/legal/confidential/" target="_blank" rel="noopener noreferrer">политике конфиденциальности</a>. Оператор не осуществляет намеренную трансграничную передачу персональных данных.</p></div>
-
-  <div class="doc-sec"><h2>8. Защита данных</h2>
-  <p>Оператор принимает необходимые правовые, организационные и технические меры для защиты данных от неправомерного доступа, изменения, раскрытия, блокирования, удаления и иных неправомерных действий. Доступ предоставляется только лицам, которым он нужен для исполнения служебных обязанностей.</p></div>
-
-  <div class="doc-sec"><h2>9. Права посетителя</h2>
-  <ul><li>получить сведения об обработке своих персональных данных;</li><li>потребовать уточнения, блокирования, прекращения обработки или удаления данных при наличии законных оснований;</li><li>отозвать ранее данное согласие;</li><li>обжаловать действия Оператора в Роскомнадзор или в суд.</li></ul>
-  <p>Запрос можно направить на <a href="mailto:pkradius@yandex.ru">pkradius@yandex.ru</a>. В запросе следует указать сведения, позволяющие подтвердить личность заявителя и его отношение к данным, а также суть требования.</p></div>
-
-  <div class="doc-sec"><h2>10. Контакты и изменение Политики</h2>
-  <ul><li>Оператор: ООО «ПАКОН»</li><li>Телефон: <a href="tel:+79853105757">8 (985) 310-57-57</a></li><li>Email: <a href="mailto:pkradius@yandex.ru">pkradius@yandex.ru</a></li><li>Адрес: 140030, Московская область, г. Люберцы, пгт Малаховка, Касимовское шоссе, д. 3Г.</li></ul>
-  <p>Оператор вправе обновлять Политику. Новая редакция действует с момента публикации на этой странице.</p></div>
-
-  <div class="doc-foot">
-    <span>© 2026 ООО «ПАКОН». ПК Радиус.</span>
-    <a href="index.html" class="back-lnk">← Вернуться на сайт</a>
+<!-- ЛАЙТБОКС -->
+<div class="lightbox" id="lb" onclick="if(event.target===this||event.target.id==='lb')closeLb()">
+  <button class="lightbox-close" onclick="closeLb()">&#215;</button>
+  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <div class="lightbox-info">
+    <div class="lightbox-name" id="lbName"></div>
+    <div class="lightbox-cat" id="lbCat"></div>
   </div>
 </div>
+
+<!-- HERO -->
+<section class="pf-page-hero">
+  <div class="wrap">
+    <p class="tag">Портфолио</p>
+    <h1 class="pf-page-title">Реализованные<br>проекты</h1>
+    <p class="pf-page-desc">Гнём профили для архитекторов, строителей и производств. Арки, фасады, нестандартные конструкции — от единичной детали до серийного заказа.</p>
+  </div>
+</section>
+
+<!-- ФИЛЬТРЫ + ГАЛЕРЕЯ -->
+<section class="section">
+  <div class="wrap">
+    <div class="pf-filters">
+      <button class="pf-filter on" onclick="filter('all', this)">Все проекты</button>
+      <button class="pf-filter" onclick="filter('arch', this)">Архитектура</button>
+      <button class="pf-filter" onclick="filter('facade', this)">Фасады</button>
+      <button class="pf-filter" onclick="filter('private', this)">Частные объекты</button>
+      <button class="pf-filter" onclick="filter('industrial', this)">Промышленность</button>
+    </div>
+
+    <div class="pf-full-grid" id="pfGrid">
+
+      <!-- Карточка 1 — Парящий мост (уже есть фото) -->
+      <div class="pf-card wide" data-cat="arch" onclick="openLb('floating_bridge.PNG','«Парящий мост» в парке «Зарядье»','Архитектура · Общественные пространства · Москва')">
+        <img src="floating_bridge.PNG" alt="Парящий мост">
+        <div class="pf-card-info">
+          <div class="pf-card-cat">Архитектура · Москва</div>
+          <div class="pf-card-name">«Парящий мост» в парке «Зарядье»</div>
+        </div>
+      </div>
+
+      <!-- Карточка 2 — Частный павильон (уже есть фото) -->
+      <div class="pf-card" data-cat="private" onclick="openLb('pavilion1.JPG','Частный павильон','Частные объекты · 2024')">
+        <img src="pavilion1.JPG" alt="Частный павильон">
+        <div class="pf-card-info">
+          <div class="pf-card-cat">Частный объект · 2024</div>
+          <div class="pf-card-name">Частный павильон</div>
+        </div>
+      </div>
+
+      <!-- Карточки-плейсхолдеры (заменишь когда появятся фото) -->
+      <!-- ФОТО: загрузи "portfolio_facade1.jpg" — фасадный проект -->
+      <div class="pf-card" data-cat="facade">
+        <div class="pf-card-ph"><svg viewBox="0 0 28 28" fill="none" stroke="white" stroke-width="1"><rect x="2" y="6" width="24" height="16" rx="1"/><circle cx="10" cy="13" r="3"/><path d="M2 18 L9 13 L16 17 L22 10 L26 14"/></svg><span>Фото скоро</span></div>
+        <div class="pf-card-info" style="opacity:1;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%)">
+          <div class="pf-card-cat">Фасады</div>
+          <div class="pf-card-name">Фасадный проект</div>
+          <div class="pf-card-year">Фото появится скоро</div>
+        </div>
+      </div>
+
+      <!-- ФОТО: загрузи "portfolio_arch1.jpg" — арочная конструкция -->
+      <div class="pf-card wide" data-cat="arch">
+        <div class="pf-card-ph"><svg viewBox="0 0 28 28" fill="none" stroke="white" stroke-width="1"><rect x="2" y="6" width="24" height="16" rx="1"/><circle cx="10" cy="13" r="3"/><path d="M2 18 L9 13 L16 17 L22 10 L26 14"/></svg><span>Фото скоро</span></div>
+        <div class="pf-card-info" style="opacity:1;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%)">
+          <div class="pf-card-cat">Архитектура</div>
+          <div class="pf-card-name">Арочная конструкция</div>
+          <div class="pf-card-year">Фото появится скоро</div>
+        </div>
+      </div>
+
+      <!-- ФОТО: загрузи "portfolio_industrial1.jpg" — промышленный объект -->
+      <div class="pf-card" data-cat="industrial" onclick="openLb('portfolio_industrial1.jpg','Промышленный объект','Промышленность · 2024')">
+        <img src="portfolio_industrial1.jpg" alt="Промышленный объект" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div class="pf-card-info">
+          <div class="pf-card-cat">Промышленность · 2024</div>
+          <div class="pf-card-name">Промышленный объект</div>
+        </div>
+      </div>
+
+      <!-- ФОТО: загрузи "portfolio_private2.jpg" — частный объект -->
+      <div class="pf-card" data-cat="private" onclick="openLb('portfolio_private2.jpg','Частный проект','Частные объекты · 2024')">
+        <img src="portfolio_private2.jpg" alt="Частный проект" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div class="pf-card-info">
+          <div class="pf-card-cat">Частные объекты · 2024</div>
+          <div class="pf-card-name">Частный проект</div>
+        </div>
+      </div>
+
+      <!-- ФОТО: загрузи "portfolio_facade2.jpg" — фасад -->
+      <div class="pf-card" data-cat="facade">
+        <div class="pf-card-ph"><svg viewBox="0 0 28 28" fill="none" stroke="white" stroke-width="1"><rect x="2" y="6" width="24" height="16" rx="1"/><circle cx="10" cy="13" r="3"/><path d="M2 18 L9 13 L16 17 L22 10 L26 14"/></svg><span>Фото скоро</span></div>
+        <div class="pf-card-info" style="opacity:1;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%)">
+          <div class="pf-card-cat">Фасады</div>
+          <div class="pf-card-name">Фасадный проект</div>
+          <div class="pf-card-year">Фото появится скоро</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="pf-cta">
+  <div class="wrap">
+    <div class="pf-cta-inner">
+      <div>
+        <p class="pf-cta-lbl">Есть задача?</p>
+        <h2 class="pf-cta-t">Обсудим ваш проект<br>бесплатно и без обязательств</h2>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <button class="btn btn-w" onclick="location.href='index.html#form'">Оставить заявку</button>
+        <a href="tel:+79853105757" class="btn btn-o">+7 (985) 310-57-57</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <!-- MAP -->
@@ -565,18 +774,11 @@ footer { background: var(--bg); border-top: 1px solid var(--line); padding: clam
         <p style="font-size:15px;font-weight:600;color:var(--white)">Касимовское ш., 3Г, корп. 1</p>
         <p style="font-size:13px;font-weight:500;color:var(--muted);margin-top:4px">р.п. Малаховка, Москва</p>
         <p style="font-size:13px;font-weight:500;color:var(--muted);margin-top:2px">Пн–Пт: 9:00–18:00</p>
-        <a href="https://yandex.ru/maps/-/CPVeFK1d" target="_blank"
-           style="display:inline-block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);border-bottom:0.5px solid rgba(255,255,255,0.3);padding-bottom:3px">
-          Открыть в Яндекс Картах →
-        </a>
+        <a href="https://yandex.ru/maps/-/CPVeFK1d" target="_blank" style="display:inline-block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);border-bottom:0.5px solid rgba(255,255,255,0.3);padding-bottom:3px">Открыть в Яндекс Картах →</a>
       </div>
     </div>
     <div style="border:0.5px solid rgba(255,255,255,0.18);overflow:hidden;border-radius:2px">
-      <iframe src="https://yandex.ru/map-widget/v1/?ll=38.023295%2C55.663689&z=16&pt=38.023295%2C55.663689%2Cpm2rdm"
-              title="Карта проезда к ПК Радиус" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
-              width="100%" height="360" frameborder="0" allowfullscreen="true"
-              style="display:block;filter:brightness(0.85) contrast(1.1) grayscale(0.3)">
-      </iframe>
+      <iframe src="https://yandex.ru/map-widget/v1/?ll=38.023295%2C55.663689&z=16&pt=38.023295%2C55.663689%2Cpm2rdm" title="Карта проезда к ПК Радиус" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" width="100%" height="360" frameborder="0" allowfullscreen="true" style="display:block;filter:brightness(0.85) contrast(1.1) grayscale(0.3)"></iframe>
     </div>
   </div>
 </section>
@@ -598,7 +800,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); padding: clam
         <ul class="foot-links">
           <li><a href="index.html#services">Гибка профилей</a></li>
           <li><a href="index.html#services">Гибка листового металла</a></li>
-        </ul>
+                  </ul>
       </div>
       <div>
         <div class="foot-t">Компания</div>
@@ -627,6 +829,50 @@ footer { background: var(--bg); border-top: 1px solid var(--line); padding: clam
   </div>
 </footer>
 <script>
+function openModal(tab) {
+  var modal = document.getElementById('modalBg');
+  if (!modal) {
+    window.location.href = 'index.html#form';
+    return;
+  }
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (tab !== undefined) swTab(tab);
+}
+function closeModal() {
+  var modal = document.getElementById('modalBg');
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function swTab(i) {
+  document.querySelectorAll('.mtab').forEach(function(t,j){ t.classList.toggle('on', j===i); });
+  document.querySelectorAll('.mform').forEach(function(f,j){ f.classList.toggle('on', j===i); });
+}
+function sendModal() {
+  window.location.href = 'mailto:pkradius@yandex.ru?subject=Заявка с сайта ПК Радиус';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeModal(); closeLb(); } });
+function filter(cat, btn) {
+  document.querySelectorAll('.pf-filter').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  document.querySelectorAll('.pf-card').forEach(function(card){
+    card.style.display = (cat==='all' || card.dataset.cat===cat) ? '' : 'none';
+  });
+}
+function openLb(src, name, cat) {
+  if(!src) return;
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lbName').textContent = name;
+  document.getElementById('lbCat').textContent = cat;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  var lb = document.getElementById('lb');
+  if(lb) lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
 window.addEventListener('scroll', function(){
   var hdr=document.getElementById('hdr');
   var stk=document.getElementById('stk');
@@ -651,18 +897,8 @@ if(burger && mobMenu){
 }
 var obs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('anim');obs.unobserve(e.target);} });
-},{threshold:0.07,rootMargin:'0px 0px -30px 0px'});
+},{threshold:0.07});
 document.querySelectorAll('.fu').forEach(function(el){obs.observe(el);});
-document.querySelectorAll('a[href^="#"]').forEach(function(a){
-  a.addEventListener('click', function(e){
-    var t=document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
-  });
-});
-var sro = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if(e.isIntersecting) { e.target.classList.add('visible'); sro.unobserve(e.target); } });
-}, { threshold: 0.15 });
-document.querySelectorAll('.sr').forEach(function(el) { sro.observe(el); });
 </script>
 </body>
 </html>
